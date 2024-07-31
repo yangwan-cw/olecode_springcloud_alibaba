@@ -3,7 +3,7 @@
 # @from <a href="https://github.com/yangwan-cw">yangwan-cw仓库</a>
 spring:
   application:
-    name: olecode_question_service
+    name: olecode_gateway_service
   # 默认 dev 环境
   profiles:
     active: dev
@@ -42,14 +42,13 @@ spring:
         server-addr: localhost:8848
 server:
   address: 0.0.0.0
-  port: 9979
+  port: 9980
   servlet:
-    context-path: /api/question
+    context-path: /api/judge
     # cookie 30 天过期
     session:
       cookie:
         max-age: 2592000
-
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
