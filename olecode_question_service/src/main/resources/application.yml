@@ -3,7 +3,7 @@
 # @from <a href="https://github.com/yangwan-cw">yangwan-cw仓库</a>
 spring:
   application:
-    name: olecode_question_service
+    name: olecode-question-service
   # 默认 dev 环境
   profiles:
     active: dev
@@ -42,7 +42,7 @@ spring:
         server-addr: localhost:8848
 server:
   address: 0.0.0.0
-  port: 9979
+  port: 8212
   servlet:
     context-path: /api/question
     # cookie 30 天过期
@@ -60,5 +60,7 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值（默认为 1）
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
       id-type: auto
+knife4j:
+  enable: true
 codesandbox:
   type: "remote"

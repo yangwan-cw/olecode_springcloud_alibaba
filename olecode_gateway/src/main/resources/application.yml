@@ -3,7 +3,7 @@
 # @from <a href="https://github.com/yangwan-cw">yangwan-cw仓库</a>
 spring:
   application:
-    name: olecode_gateway_service
+    name: olecode-gateway-service
   # 默认 dev 环境
   profiles:
     active: dev
@@ -24,6 +24,8 @@ spring:
     url: jdbc:mysql://localhost:3306/test
     username: root
     password: 9978@wzb
+  main:
+    web-application-type: reactive
   # Redis 配置
   # todo 需替换配置，然后取消注释
   redis:
@@ -40,9 +42,23 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: olecode-user-service
+          uri: lb://olecode-user-service
+          predicates:
+            - Path=/api/user/**
+        - id: olecode-question-service
+          uri: lb://olecode-question-service
+          predicates:
+            - Path=/api/question/**
+        - id: olecode-judge-service
+          uri: lb://olecode-judge-service
+          predicates:
+            - Path=/api/judge/**
 server:
   address: 0.0.0.0
-  port: 9980
+  port: 8401
   servlet:
     context-path: /api/judge
     # cookie 30 天过期
@@ -59,5 +75,12 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值（默认为 1）
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
       id-type: auto
+knife4j:
+  gateway:
+    enabled: true
+    discover:
+      enabled: true
+      strategy: discover
+    version: swagger2
 codesandbox:
   type: "remote"

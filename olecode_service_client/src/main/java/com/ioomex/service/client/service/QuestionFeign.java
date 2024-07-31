@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@FeignClient(name = "olecode_question_service", path = "/api/question/inner")
+@FeignClient(name = "olecode-question-service", path = "/api/question/inner")
 public interface QuestionFeign {
 
     @GetMapping("/get/id")

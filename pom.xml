@@ -34,7 +34,7 @@
         <!-- MySQL 连接器 版本 -->
         <mysql-connector.version>8.0.30</mysql-connector.version>
         <!-- Arthas 版本 -->
-        <arthas.version>3.6.7</arthas.version>
+<!--        <arthas.version>3.6.7</arthas.version>-->
         <!-- Spring Cloud 依赖管理 版本 -->
         <spring-cloud-dependencies.version>2021.0.5</spring-cloud-dependencies.version>
         <!-- Maven 编译插件 版本 -->
@@ -97,12 +97,12 @@
         </dependency>
 
         <!-- Arthas Spring Boot Starter -->
-        <dependency>
-            <groupId>com.taobao.arthas</groupId>
-            <artifactId>arthas-spring-boot-starter</artifactId>
-            <version>${arthas.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.taobao.arthas</groupId>-->
+<!--            <artifactId>arthas-spring-boot-starter</artifactId>-->
+<!--            <version>${arthas.version}</version>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
 
         <!-- Lombok 用于简化 Java 代码 -->
         <dependency>
@@ -167,6 +167,20 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-loadbalancer</artifactId>
+            <version>3.1.5</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

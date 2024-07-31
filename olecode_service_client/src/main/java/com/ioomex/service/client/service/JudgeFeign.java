@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * 判题服务
  */
-@FeignClient(name="olecode_judge_service",path="/api/judge/inner")
+@FeignClient(name="olecode-judge-service",path="/api/judge/inner")
 public interface JudgeFeign {
 
     @GetMapping("/do")

@@ -17,7 +17,7 @@ import java.util.List;
 import static com.ioomex.common.app.constant.UserConstant.USER_LOGIN_STATE;
 
 
-@FeignClient(name="olecode_user_service",path="/api/user/inner")
+@FeignClient(name="olecode-user-service",path="/api/user/inner")
 public interface UserFeign {
 
 

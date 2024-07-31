@@ -3,10 +3,11 @@
 # @from <a href="https://github.com/yangwan-cw">yangwan-cw仓库</a>
 spring:
   application:
-    name: olecode_user_service
+    name: olecode-user-service
   # 默认 dev 环境
   profiles:
     active: dev
+
   # 支持 swagger3
   mvc:
     pathmatch:
@@ -42,7 +43,7 @@ spring:
         server-addr: localhost:8848
 server:
   address: 0.0.0.0
-  port: 9978
+  port: 8668
   servlet:
     context-path: /api/user
     # cookie 30 天过期
@@ -59,5 +60,7 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值（默认为 1）
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
       id-type: auto
+knife4j:
+    enable: true
 codesandbox:
   type: "remote"
