@@ -1,5 +1,6 @@
 package com.ioomex.codeJuge;
 
+import com.ioomex.codeJuge.app.judge.rabbitmq.InitMq;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class OlecodeCodeJudgeServiceApplication {
 
     public static void main(String[] args) {
+        InitMq.doInit();
         SpringApplication.run(OlecodeCodeJudgeServiceApplication.class, args);
     }
 

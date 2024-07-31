@@ -16,6 +16,7 @@ import com.ioomex.module.app.entity.QuestionSubmit;
 import com.ioomex.module.app.entity.SysUser;
 import com.ioomex.module.app.vo.QuestionSubmitVO;
 import com.ioomex.question.app.mapper.QuestionSubmitMapper;
+import com.ioomex.question.app.rabbitmq.MyMessageProducer;
 import com.ioomex.question.app.service.QuestionService;
 import com.ioomex.question.app.service.QuestionSubmitService;
 import com.ioomex.service.client.service.JudgeFeign;
@@ -23,12 +24,12 @@ import com.ioomex.service.client.service.UserFeign;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,6 +43,8 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     @Resource
     @Lazy
     private JudgeFeign judgeFeign;
+    @Autowired
+    private MyMessageProducer myMessageProducer;
 
 
     /**
@@ -80,10 +83,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "数据插入失败");
         }Long questionSubmitId = questionSubmit.getId();
-// 执行判题服务
-        CompletableFuture.runAsync(() -> {
-            judgeFeign.doJudge(questionSubmitId);
-        });
+        // 执行判题服务
+        myMessageProducer.sendMessage("code_exchange","my_routingKey", String.valueOf(questionSubmitId));
+//        CompletableFuture.runAsync(() -> {
+//            judgeFeign.doJudge(questionSubmitId);
+//        });
         return questionSubmit.getId();
     }
 
