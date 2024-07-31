@@ -68,7 +68,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.ioomex.olecode_user_service.OlecodeUserServiceApplication</mainClass>
+                    <mainClass>com.ioomex.user.app.OlecodeUserServiceApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>

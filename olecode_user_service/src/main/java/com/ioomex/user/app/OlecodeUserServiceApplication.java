@@ -1,4 +1,4 @@
-package com.ioomex.olecode_user_service;
+package com.ioomex.user.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

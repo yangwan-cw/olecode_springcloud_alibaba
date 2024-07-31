@@ -1,17 +1,17 @@
 package com.ioomex.module.app.dto.problem.problemSubmit;
 
+import com.ioomex.common.app.common.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.domain.PageRequest;
 
 import java.io.Serializable;
 
 /**
  * 查询请求
- *
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+
 public class QuestionSubmitQueryRequest extends PageRequest implements Serializable {
 
     /**
