@@ -1,4 +1,4 @@
-package com.ioomex.olecode_service_client;
+package com.ioomex.service.client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
