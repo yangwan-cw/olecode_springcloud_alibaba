@@ -6,8 +6,18 @@
     <groupId>com.ioomex</groupId>
     <artifactId>oledcodeApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>oledcodeApp</name>
     <description>nacos+sentinel+gateway....</description>
+    <modules>
+        <module>olecode_common</module>
+        <module>olecode_module</module>
+        <module>olecode_codeJudge_service</module>
+        <module>olecode_gateway</module>
+        <module>olecode_question_service</module>
+        <module>olecode_service_client</module>
+        <module>olecode_user_service</module>
+    </modules>
 
     <properties>
         <!-- Java 版本 -->
@@ -16,7 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Spring Boot 版本 -->
-        <spring-boot.version>2.6.13</spring-boot.version>
+        <spring-boot.version>2.7.5</spring-boot.version>
         <!-- Spring Cloud Alibaba 版本 -->
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <!-- MyBatis 版本 -->
@@ -112,7 +122,7 @@
             <artifactId>spring-cloud-dependencies</artifactId>
             <version>${spring-cloud-dependencies.version}</version>
             <type>pom</type>
-            <scope>import</scope>
+<!--            <scope>import</scope>-->
         </dependency>
     </dependencies>
 
