@@ -1,10 +1,10 @@
-package com.ioomex.olecode_question_service;
+package com.ioomex.codeJuge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OlecodeQuestionServiceApplicationTests {
+class OlecodeCodeJudgeServiceApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,4 +1,4 @@
-package com.ioomex.module.app.codesandbox;
+package com.ioomex.codeJuge.app.judge.codesandbox.model;
 
 import com.ioomex.module.app.dto.problem.problemSubmit.JudgeInfo;
 import lombok.AllArgsConstructor;

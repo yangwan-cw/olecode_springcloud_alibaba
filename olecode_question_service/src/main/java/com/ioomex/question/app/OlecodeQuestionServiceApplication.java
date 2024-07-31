@@ -1,4 +1,4 @@
-package com.ioomex.user.app;
+package com.ioomex.question.app;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -11,11 +11,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
-@MapperScan("com.ioomex.user.app.mapper")
-public class OlecodeUserServiceApplication {
+@MapperScan("com.ioomex.question.app.mapper")
+public class OlecodeQuestionServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OlecodeUserServiceApplication.class, args);
+        SpringApplication.run(OlecodeQuestionServiceApplication.class, args);
     }
 
 }

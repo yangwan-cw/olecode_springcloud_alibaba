@@ -38,6 +38,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.ioomex</groupId>
+            <artifactId>olecode_service_client</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -68,7 +73,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.ioomex.olecode_question_service.OlecodeQuestionServiceApplication</mainClass>
+                    <mainClass>com.ioomex.question.app.OlecodeQuestionServiceApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
