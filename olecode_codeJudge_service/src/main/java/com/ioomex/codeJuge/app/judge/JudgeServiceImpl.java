@@ -14,8 +14,7 @@ import com.ioomex.module.app.dto.problem.JudgeCase;
 import com.ioomex.module.app.dto.problem.problemSubmit.JudgeInfo;
 import com.ioomex.module.app.entity.Question;
 import com.ioomex.module.app.entity.QuestionSubmit;
-import com.ioomex.service.client.service.service.QuestionService;
-import com.ioomex.service.client.service.service.QuestionSubmitService;
+import com.ioomex.service.client.service.QuestionFeign;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 public class  JudgeServiceImpl implements JudgeService {
 
     @Resource
-    private QuestionService questionService;
+    private QuestionFeign questionService;
 
     @Resource
     private QuestionSubmitService questionSubmitService;

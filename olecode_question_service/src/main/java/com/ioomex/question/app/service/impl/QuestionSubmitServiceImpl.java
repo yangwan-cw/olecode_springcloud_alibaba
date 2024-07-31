@@ -18,8 +18,8 @@ import com.ioomex.module.app.vo.QuestionSubmitVO;
 import com.ioomex.question.app.mapper.QuestionSubmitMapper;
 import com.ioomex.question.app.service.QuestionService;
 import com.ioomex.question.app.service.QuestionSubmitService;
-import com.ioomex.service.client.service.service.JudgeService;
-import com.ioomex.service.client.service.service.UserService;
+import com.ioomex.service.client.service.JudgeFeign;
+import com.ioomex.service.client.service.UserFeign;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,11 +37,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     private QuestionService questionService;
 
     @Resource
-    private UserService userService;
+    private UserFeign userFeign;
 
     @Resource
     @Lazy
-    private JudgeService judgeService;
+    private JudgeFeign judgeFeign;
 
 
     /**
@@ -124,7 +124,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         // 脱敏：仅本人和管理员能看见自己（提交 userId 和登录用户 id 不同）提交的代码
         long userId = loginUser.getId();
         // 处理脱敏
-        if (userId != questionSubmit.getUserId() && !userService.isAdmin(loginUser)) {
+        if (userId != questionSubmit.getUserId() && !userFeign.isAdmin(loginUser)) {
             questionSubmitVO.setCode(null);
         }
         return questionSubmitVO;

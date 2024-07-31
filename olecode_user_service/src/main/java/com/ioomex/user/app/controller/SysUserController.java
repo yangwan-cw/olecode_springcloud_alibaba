@@ -35,7 +35,7 @@ import static com.ioomex.user.app.service.impl.UserServiceImpl.SALT;
  * @from <a href="https://github.com/yangwan-cw">yangwan-cw仓库</a>
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 @Slf4j
 public class SysUserController {
 

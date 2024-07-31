@@ -21,7 +21,7 @@ import com.ioomex.module.app.vo.QuestionSubmitVO;
 import com.ioomex.module.app.vo.QuestionVO;
 import com.ioomex.question.app.service.QuestionService;
 import com.ioomex.question.app.service.QuestionSubmitService;
-import com.ioomex.service.client.service.service.UserService;
+import com.ioomex.service.client.service.UserFeign;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/")
 
 public class QuestionController {
 
@@ -44,7 +44,7 @@ public class QuestionController {
     private QuestionService questionService;
 
     @Resource
-    private UserService userService;
+    private UserFeign userFeign;
 
     @Resource
     private QuestionSubmitService questionSubmitService;
@@ -84,7 +84,7 @@ public class QuestionController {
             question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         questionService.validQuestion(question, true);
-        SysUser loginSysUser = userService.getLoginUser(request);
+        SysUser loginSysUser = userFeign.getLoginUser(request);
         question.setUserId(loginSysUser.getId());
         question.setFavourNum(NumberConstant.ZERO);
         question.setThumbNum(NumberConstant.ZERO);
@@ -109,13 +109,13 @@ public class QuestionController {
         if (ObjectUtils.isEmpty(deleteRequest) || deleteRequest.getId() <= NumberConstant.ZERO) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        SysUser SysUser = userService.getLoginUser(request);
+        SysUser sysUser = userFeign.getLoginUser(request);
         long id = deleteRequest.getId();
         // 判断是否存在
         Question oldQuestion = questionService.getById(id);
         ThrowUtils.throwIf(oldQuestion == null, ErrorCode.NOT_FOUND_ERROR);
         // 仅本人或管理员可删除
-        if (!oldQuestion.getUserId().equals(SysUser.getId()) && !userService.isAdmin(request)) {
+        if (!oldQuestion.getUserId().equals(sysUser.getId()) && !userFeign.isAdmin(sysUser)) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
         boolean b = questionService.removeById(id);
@@ -194,7 +194,7 @@ public class QuestionController {
         if (questionQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        SysUser loginSysUser = userService.getLoginUser(request);
+        SysUser loginSysUser = userFeign.getLoginUser(request);
         questionQueryRequest.setUserId(loginSysUser.getId());
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
@@ -245,13 +245,13 @@ public class QuestionController {
         }
         // 参数校验
         questionService.validQuestion(question, false);
-        SysUser loginSysUser = userService.getLoginUser(request);
+        SysUser loginSysUser = userFeign.getLoginUser(request);
         long id = questionEditRequest.getId();
         // 判断是否存在
         Question oldQuestion = questionService.getById(id);
         ThrowUtils.throwIf(oldQuestion == null, ErrorCode.NOT_FOUND_ERROR);
         // 仅本人或管理员可编辑
-        if (!oldQuestion.getUserId().equals(loginSysUser.getId()) && !userService.isAdmin(loginSysUser)) {
+        if (!oldQuestion.getUserId().equals(loginSysUser.getId()) && !userFeign.isAdmin(loginSysUser)) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
         boolean result = questionService.updateById(question);
@@ -270,7 +270,7 @@ public class QuestionController {
         }
 
 
-        final SysUser loginUser = userService.getLoginUser(request);
+        final SysUser loginUser = userFeign.getLoginUser(request);
 
         submitThrottling(loginUser);
         long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
@@ -302,7 +302,7 @@ public class QuestionController {
         // 从数据库中查询原始的题目提交分页信息
         Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
           questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
-        final SysUser loginUser = userService.getLoginUser(request);
+        final SysUser loginUser = userFeign.getLoginUser(request);
         // 返回脱敏信息
         return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
     }
