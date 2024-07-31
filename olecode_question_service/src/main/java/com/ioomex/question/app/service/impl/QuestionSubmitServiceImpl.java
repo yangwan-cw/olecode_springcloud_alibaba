@@ -82,7 +82,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         }Long questionSubmitId = questionSubmit.getId();
 // 执行判题服务
         CompletableFuture.runAsync(() -> {
-            judgeService.doJudge(questionSubmitId);
+            judgeFeign.doJudge(questionSubmitId);
         });
         return questionSubmit.getId();
     }
