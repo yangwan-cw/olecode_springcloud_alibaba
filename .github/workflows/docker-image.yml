@@ -24,3 +24,6 @@ jobs:
         docker-compose -f docker-compose.env.yml up -d
       env:
         COMPOSE_FILE: docker-compose.env.yml
+
+    - name: List Docker images
+      run: docker images
