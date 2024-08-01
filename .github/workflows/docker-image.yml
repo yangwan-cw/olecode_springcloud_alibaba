@@ -27,3 +27,7 @@ jobs:
 
     - name: List Docker images
       run: docker images
+    - name: List  Container
+      run: docker ps -a
+    - name: List  Running Container
+      run: docker ps
