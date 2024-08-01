@@ -71,18 +71,22 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- 指定插件的组 ID 和 artifact ID，这里是 Spring Boot 提供的插件 -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <executions>
+                    <!-- 定义插件的执行配置 -->
                     <execution>
+                        <!-- 给这个执行配置一个唯一的 ID -->
                         <id>repackage</id>
                         <goals>
+                            <!-- 定义要执行的目标 -->
                             <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
+            <!--            <plugin>-->
 <!--                <groupId>org.springframework.boot</groupId>-->
 <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
 <!--                <version>${spring-boot.version}</version>-->
