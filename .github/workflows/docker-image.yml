@@ -1,0 +1,26 @@
+name: Docker Compose Management
+
+on:
+  push:
+    branches: [ "master" ]  # 触发条件：推送到 main 分支
+  workflow_dispatch:  # 手动触发工作流
+
+jobs:
+  manage_containers:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Set up Docker Compose
+      uses: docker/setup-buildx-action@v2
+
+    - name: Start environment services
+      run: |
+        docker-compose -f docker-compose.env.yml up -d
+      env:
+        COMPOSE_FILE: docker-compose.env.yml
