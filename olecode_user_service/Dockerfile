@@ -4,7 +4,7 @@ FROM openjdk:11-jre-slim
 # 设置工作目录
 WORKDIR /app
 
-ADD olecode_user_service-0.0.1-SNAPSHOT.jar .
+ADD target/olecode_user_service-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 8102
 
