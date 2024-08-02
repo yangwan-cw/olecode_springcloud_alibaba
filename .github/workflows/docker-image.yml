@@ -95,12 +95,12 @@ jobs:
             ls -l /opt/app/zip >> /opt/app/zip/deployment.log  # 列出目录文件
             if [ -f /opt/app/zip/publish.zip ]; then
               echo "✅ publish.zip found." >> /opt/app/zip/deployment.log
-            else
+            else  
               echo "❌ publish.zip not found!" >> /opt/app/zip/deployment.log
             fi
             echo "📦 Unzipping publish.zip..." >> /opt/app/zip/deployment.log
             unzip -l /opt/app/zip/publish.zip >> /opt/app/zip/deployment.log  # 查看 ZIP 文件内容（调试用）
-            unzip /opt/app/zip/publish.zip >> /opt/app/zip/deployment.log
+            unzip /opt/app/zip/publish.zip 
             echo "🚀 Starting Docker Compose deployment..." >> /opt/app/zip/deployment.log
             docker-compose -f /opt/app/zip/docker-compose.env.yml up -d >> /opt/app/zip/deployment.log 2>&1
             docker-compose -f /opt/app/zip/docker-compose.service.yml up -d >> /opt/app/zip/deployment.log 2>&1
