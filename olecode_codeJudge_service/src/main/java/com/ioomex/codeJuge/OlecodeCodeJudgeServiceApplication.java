@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import javax.annotation.Resource;
+
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
@@ -18,7 +20,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class OlecodeCodeJudgeServiceApplication {
 
     public static void main(String[] args) {
-        InitMq.doInit();
         SpringApplication.run(OlecodeCodeJudgeServiceApplication.class, args);
     }
 

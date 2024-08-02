@@ -2,32 +2,21 @@ name: Docker Compose Management
 
 on:
   push:
-    branches: [ "master" ]  # 触发条件：推送到 main 分支
+    branches: [ "master" ]  # 触发条件：推送到 master 分支
   workflow_dispatch:  # 手动触发工作流
 
 jobs:
   manage_containers:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v2
-
-    - name: Set up Docker Compose
-      uses: docker/setup-buildx-action@v2
-
-    - name: Start environment services
-      run: |
-        docker-compose -f docker-compose.env.yml up -d
-      env:
-        COMPOSE_FILE: docker-compose.env.yml
-
-    - name: List Docker images
-      run: docker images
-    - name: List  Container
-      run: docker ps -a
-    - name: List  Running Container
-      run: docker ps
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: 检查仓库代码 👁︎
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: 仓库文件列表 📦
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."

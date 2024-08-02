@@ -1,15 +1,24 @@
 package com.ioomex.codeJuge.app.judge.rabbitmq;
 
 import com.rabbitmq.client.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Component
 public class InitMq {
 
+    @Value("${spring.rabbitmq.host:localhost}")
+    private String localAdr;
 
-    public static void doInit() {
+
+    @PostConstruct
+    public  void doInit() {
         try {
             // 创建连接工厂
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
+            factory.setHost(localAdr);
 
             // 创建连接
             Connection connection = factory.newConnection();
@@ -34,9 +43,5 @@ public class InitMq {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        doInit();
     }
 }
