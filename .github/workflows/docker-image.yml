@@ -88,7 +88,7 @@ jobs:
           user: ${{ secrets.SERVER_USER }}
           pass: ${{ secrets.SERVER_PASSWORD }}
           scp: |
-            ./publish.zip => /opt/app/zip/
+            ./publish.zip => /opt/app/zip
           last_ssh: |
             echo "🔄 Starting deployment process..." >> /opt/app/zip/deployment.log
             echo "📦 Checking if publish.zip exists..." >> /opt/app/zip/deployment.log
