@@ -70,11 +70,7 @@ jobs:
       - name: 打印仓库文件列表 📦
         run: ls ${{ github.workspace }}
 
-      - name: 打包代码成 ZIP 文件 📦
-        id: deploy
-        run: |
-          zip -r publish.zip . -x "*.git*"
-          echo "::set-output name=zip-path::publish.zip"
+
 
       - name: 查看 zip 文件 📦
         run: ls
@@ -88,9 +84,9 @@ jobs:
           user: ${{ secrets.DEV_SERVER_USER }}
           pass: ${{ secrets.DEV_SERVER_PASSWORD }}
           scp: |
-            ./publish.zip => /opt/app/zip
+            . => /opt/app/zip
           last_ssh: |
-            unzip /opt/app/zip/publish.zip
+
 #            docker-compose -f /opt/app/zip/docker-compose.env.yml up -d
 #            docker-compose -f /opt/app/zip/docker-compose.service.yml up -d
 #            docker-compose ps
