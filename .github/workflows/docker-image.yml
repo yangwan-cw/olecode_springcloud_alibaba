@@ -91,6 +91,18 @@ jobs:
             ./publish.zip => /opt/app/zip
           last_ssh: |
             ls
+      - name: 清空之前的旧文件夹
+        uses: easingthemes/ssh-deploy@v4.1.8
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
+          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
+          REMOTE_PORT: 22
+          #          remote-path: /opt/app/test
+          #          local-path: ./publish.zip
+          SCRIPT_AFTER: |
+            cd /opt/app/test
+            rm -rf *   # 删除目录下所有文件和子目录
       - name: 推送到测试服务器备份 zip 文件夹
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         env:
