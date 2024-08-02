@@ -81,30 +81,17 @@ jobs:
           SCRIPT_AFTER: |
             cd /opt/app/test
             unzip publish.zip
-            
 
-      - name: 打包 maven
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-        env:
-          LASTSSH: "Doing something after copying"
+      - name: mvn 打包
+        uses: easingthemes/ssh-deploy@v4.1.8
         with:
-          host: ${{ secrets.DEV_SERVER_HOST }}
-          user: ${{ secrets.DEV_SERVER_USER }}
-          pass: ${{ secrets.DEV_SERVER_PASSWORD }}
-          last_ssh: |
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
+          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
+          REMOTE_PORT: 22
+          SCRIPT_AFTER: |
             cd /opt/app/test
             mvn clean install
-
-#      - name: mvn 打包
-#        uses: easingthemes/ssh-deploy@v4.1.8
-#        with:
-#          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-#          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
-#          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
-#          REMOTE_PORT: 22
-#          SCRIPT_AFTER: |
-#            cd /opt/app/test
-#            mvn clean install
 
       - name: 运行 env 镜像
         uses: easingthemes/ssh-deploy@v4.1.8
