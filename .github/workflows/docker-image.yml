@@ -79,7 +79,7 @@ jobs:
       - name: 查看 zip 文件 📦
         run: ls
 
-      - name: 推送到测试服务器服务器
+      - name: 推送到测试服务器备份 zip 文件夹
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         env:
           LASTSSH: "Doing something after copying"
@@ -91,7 +91,7 @@ jobs:
             ./publish.zip => /opt/app/zip
           last_ssh: |
             ls
-      - name: 推送到备份服务器
+      - name: 推送到测试服务器
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         env:
           LASTSSH: "Doing something after copying"
