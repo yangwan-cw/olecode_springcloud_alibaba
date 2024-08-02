@@ -73,16 +73,16 @@ jobs:
       - name: 查看 zip 文件 📦
         run: ls
 
-#      - name: 清空之前的旧文件夹
-#        uses: easingthemes/ssh-deploy@v4.1.8
-#        with:
-#          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-#          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
-#          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
-#          REMOTE_PORT: 22
-#          SCRIPT_AFTER: |
-#            cd /opt/app/test
-#            rm -rf *   # 删除目录下所有文件和子目录
+      - name: 清空之前的旧文件夹
+        uses: easingthemes/ssh-deploy@v4.1.8
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
+          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
+          REMOTE_PORT: 22
+          SCRIPT_AFTER: |
+            cd /opt/app/test
+            rm -rf *   # 删除目录下所有文件和子目录
 
       - name: 打包代码成 ZIP 文件 📦
         id: deploy
@@ -126,6 +126,8 @@ jobs:
           SCRIPT_AFTER: |
             cd /opt/app/test
             unzip publish.zip
+            docker-compose -f docker-compose.env.yml up -d
+            docker-compose -f docker-compose.service.yml up -d
 
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
