@@ -9,14 +9,42 @@ jobs:
   manage_containers:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: 打印信息 🎉
+        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - name: 打印操作系统信息 🐧
+        run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+
+      - name: 打印分支和仓库信息 🔎
+        run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
       - name: 检查仓库代码 👁︎
         uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: 仓库文件列表 📦
+
+      - name: 打印仓库文件列表 📦
+        run: ls ${{ github.workspace }}
+
+      - name: 打包代码成 ZIP 文件 📦
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          zip -r code.zip . -x "*.git*"
+
+      - name: 查看 zip 文件 📦
+        run: |
+          ls
+
+      - name: 推送到备份服务器
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          local-dir: ./
+          server: ${{ secrets.SERVER_SERVER }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          remote-dir: /opt/app/zip
+          exclude: |
+            .git
+            node_modules
+            .gitignore
+            .env
+
+      - name: 打印作业状态 🍏
+        run: echo "🍏 This job's status is ${{ job.status }}."
