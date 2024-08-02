@@ -51,7 +51,7 @@ jobs:
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
 
-  publish_code:
+  publish_dev_code:
     runs-on: ubuntu-latest
     needs: 备份代码  # 确保在备份代码作业成功后才执行
     steps:
