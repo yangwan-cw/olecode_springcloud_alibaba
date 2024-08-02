@@ -33,18 +33,18 @@ jobs:
           ls
 
       - name: 推送到备份服务器
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        env:
+          LASTSSH: "Doing something after copying"
         with:
-          local-dir: ./
-          server: ${{ secrets.SERVER_SERVER }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          remote-dir: /opt/app/zip/
-          exclude: |
-            .git
-            node_modules
-            .gitignore
-            .env
+          host: ${{ secrets.SERVER_HOST }}
+          user: ${{ secrets.SERVER_USER}}
+          pass: ${{ secrets.SERVER_PASSWORD }}
+          scp: |
+            ./code.zip => /path/on/server/code.zip
+          last_ssh: |
+            echo $LASTSSH
+            # 执行其他命令，例如解压 ZIP 文件和重启服务
 
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
