@@ -1,3 +1,7 @@
+CREATE DATABASE olecode CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE olecode;
+
+
 CREATE TABLE `sys_user` (
                             `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
                             `userAccount` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '账号',

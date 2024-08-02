@@ -15,10 +15,10 @@ public class CorsConfig {
     @Bean
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedMethod("*"); // 修复了语法错误：使用了正确的圆括号
-        config.setAllowCredentials(true); // 修复了语法错误：使用了正确的圆括号
+        config.addAllowedMethod("*");
+        config.setAllowCredentials(true);
         // TODO: 将此处更新为实际的生产环境域名或本地域名
-        config.setAllowedOriginPatterns(Arrays.asList("*")); // 修复了方法名错误：使用了正确的方法名称
+        config.setAllowedOriginPatterns(Arrays.asList("*"));
         config.addAllowedHeader("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());

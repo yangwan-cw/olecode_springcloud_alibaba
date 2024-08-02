@@ -6,6 +6,6 @@ WORKDIR /app
 
 ADD target/olecode_gateway-0.0.1-SNAPSHOT.jar .
 
-EXPOSE 8102
+EXPOSE 8401
 
 ENTRYPOINT ["java","-jar","/app/olecode_gateway-0.0.1-SNAPSHOT.jar","--spring.profiles.active=prod"]
