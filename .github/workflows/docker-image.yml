@@ -78,19 +78,6 @@ jobs:
 
       - name: 查看 zip 文件 📦
         run: ls
-
-      - name: 推送到测试服务器备份 zip 文件夹
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-        env:
-          LASTSSH: "Doing something after copying"
-        with:
-          host: ${{ secrets.DEV_SERVER_HOST }}
-          user: ${{ secrets.DEV_SERVER_USER }}
-          pass: ${{ secrets.DEV_SERVER_PASSWORD }}
-          scp: |
-            ./publish.zip => /opt/app/zip
-          last_ssh: |
-            ls
       - name: 清空之前的旧文件夹
         uses: easingthemes/ssh-deploy@v4.1.8
         with:
@@ -103,6 +90,18 @@ jobs:
           SCRIPT_AFTER: |
             cd /opt/app/test
             rm -rf *   # 删除目录下所有文件和子目录
+      - name: 推送到测试服务器备份 zip 文件夹
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        env:
+          LASTSSH: "Doing something after copying"
+        with:
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          user: ${{ secrets.DEV_SERVER_USER }}
+          pass: ${{ secrets.DEV_SERVER_PASSWORD }}
+          scp: |
+            ./publish.zip => /opt/app/zip
+          last_ssh: |
+            ls
       - name: 推送到测试服务器备份 zip 文件夹
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         env:
