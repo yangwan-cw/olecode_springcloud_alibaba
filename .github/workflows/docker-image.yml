@@ -139,16 +139,6 @@ jobs:
           SCRIPT_AFTER: |
             cd /opt/app/test
             unzip publish.zip
-
-      - name: 打包镜像 🍏
-        uses: easingthemes/ssh-deploy@v4.1.8
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
-          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
-          REMOTE_PORT: 22
-          SCRIPT_AFTER: |
-            cd /opt/app/test
             mvn clean install 
             docker-compose -f docker-compose.env.yml up -d
             docker-compose -f docker-compose.service.yml up -d
