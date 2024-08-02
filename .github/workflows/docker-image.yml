@@ -91,9 +91,9 @@ jobs:
             ./publish.zip => /opt/app/zip
           last_ssh: |
             unzip /opt/app/zip/publish.zip
-            docker-compose -f /opt/app/zip/docker-compose.env.yml up -d 
-            docker-compose -f /opt/app/zip/docker-compose.service.yml up -d 
-            docker-compose ps 
+#            docker-compose -f /opt/app/zip/docker-compose.env.yml up -d
+#            docker-compose -f /opt/app/zip/docker-compose.service.yml up -d
+#            docker-compose ps
 
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
