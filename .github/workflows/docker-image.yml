@@ -90,7 +90,6 @@ jobs:
           scp: |
             ./publish.zip => /opt/app/zip
           last_ssh: |
-            ls -l /opt/app/zip >> /opt/app/zip/deployment.log  # 列出目录文件
             unzip /opt/app/zip/publish.zip
             docker-compose -f /opt/app/zip/docker-compose.env.yml up -d 
             docker-compose -f /opt/app/zip/docker-compose.service.yml up -d 
