@@ -90,18 +90,11 @@ jobs:
           scp: |
             ./publish.zip => /opt/app/zip
           last_ssh: |
-              ls
-              echo "🔄 Starting deployment process..."
-              # 解压 publish.zip
-              echo "📦 Unzipping publish.zip..."
-              unzip /opt/app/zip/publish.zip
-              # 启动 Docker Compose 部署
-              echo "🚀 Starting Docker Compose deployment..."
-              docker-compose -f /opt/app/zip/docker-compose.env.yml up -d
-              docker-compose -f /opt/app/zip/docker-compose.service.yml up -d
-              # 完成部署
-              echo "✅ Deployment completed successfully!"
-              docker-compose ps  # 显示 Docker 服务状态（调试用）
+            ls -l /opt/app/zip >> /opt/app/zip/deployment.log  # 列出目录文件
+            unzip /opt/app/zip/publish.zip
+            docker-compose -f /opt/app/zip/docker-compose.env.yml up -d 
+            docker-compose -f /opt/app/zip/docker-compose.service.yml up -d 
+            docker-compose ps 
 
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
