@@ -41,10 +41,9 @@ jobs:
           user: ${{ secrets.SERVER_USER}}
           pass: ${{ secrets.SERVER_PASSWORD }}
           scp: |
-            ./code.zip => /path/on/server/code.zip
+            ./code.zip => /opt/app/zip/code.zip
           last_ssh: |
-            echo $LASTSSH
-            # 执行其他命令，例如解压 ZIP 文件和重启服务
+            ls
 
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
