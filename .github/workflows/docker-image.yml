@@ -80,7 +80,7 @@ jobs:
           REMOTE_PORT: 22
           SCRIPT_AFTER: |
             cd /opt/app/test
-            unzip publish.zip
+            unzip -o publish.zip
 
       - name: mvn 打包
         uses: easingthemes/ssh-deploy@v4.1.8
