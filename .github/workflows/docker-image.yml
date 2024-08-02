@@ -81,38 +81,6 @@ jobs:
           SCRIPT_AFTER: |
             cd /opt/app/test
             unzip -o publish.zip
-
-      - name: mvn 打包
-        uses: easingthemes/ssh-deploy@v4.1.8
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
-          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
-          REMOTE_PORT: 22
-          SCRIPT_AFTER: |
-            cd /opt/app/test
             mvn clean install
-
-      - name: 运行 env 镜像
-        uses: easingthemes/ssh-deploy@v4.1.8
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
-          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
-          REMOTE_PORT: 22
-          SCRIPT_AFTER: |
-            cd /opt/app/test
             docker-compose -f docker-compose.env.yml up -d
-
-      - name: 运行 env 镜像
-        uses: easingthemes/ssh-deploy@v4.1.8
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_USER: ${{ secrets.DEV_SERVER_USER }}
-          REMOTE_HOST: ${{ secrets.DEV_SERVER_HOST }}
-          REMOTE_PORT: 22
-          SCRIPT_AFTER: |
-            cd /opt/app/test
             docker-compose -f docker-compose.service.yml up -d
-      - name: 打印作业状态 🍏
-        run: echo "🍏 This job's status is ${{ job.status }}."
