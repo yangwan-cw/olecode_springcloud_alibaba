@@ -92,21 +92,24 @@ jobs:
           last_ssh: |
             ls
       - name: 推送到测试服务器
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-        env:
-          LASTSSH: "Doing something after copying"
+        uses: appleboy/drone-scp@v1
         with:
           host: ${{ secrets.DEV_SERVER_HOST }}
-          user: ${{ secrets.DEV_SERVER_USER }}
-          pass: ${{ secrets.DEV_SERVER_PASSWORD }}
-          scp: |
-            ./publish.zip => /opt/app/test
-          last_ssh: |
-             ls
-             unzip /opt/app/test/publish.zip
-#            docker-compose -f /opt/app/zip/docker-compose.env.yml up -d
-#            docker-compose -f /opt/app/zip/docker-compose.service.yml up -d
-#            docker-compose ps
+          username: ${{ secrets.DEV_SERVER_USER }}
+          password: ${{ secrets.DEV_SERVER_PASSWORD }}
+          source: "./publish.zip"
+          target: "/opt/app/test"
+      - name: 执行远程命令
+        uses: appleboy/drone-ssh@v1
+        with:
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          username: ${{ secrets.DEV_SERVER_USER }}
+          password: ${{ secrets.DEV_SERVER_PASSWORD }}
+          script: |
+            cd /opt/app/test
+            unzip publish.zip
+#            docker-compose -f docker-compose.env.yml up -d
+#            docker-compose -f docker-compose.service.yml up -d
 
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
