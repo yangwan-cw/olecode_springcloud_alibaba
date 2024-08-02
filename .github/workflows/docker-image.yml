@@ -103,7 +103,7 @@ jobs:
             ./publish.zip => /opt/app/test
           last_ssh: |
              ls
-             zip /opt/app/zip/publish.zip
+             zip /opt/app/test/publish.zip
 #            docker-compose -f /opt/app/zip/docker-compose.env.yml up -d
 #            docker-compose -f /opt/app/zip/docker-compose.service.yml up -d
 #            docker-compose ps
