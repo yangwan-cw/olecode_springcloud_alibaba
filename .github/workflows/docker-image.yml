@@ -84,20 +84,26 @@ jobs:
         env:
           LASTSSH: "Doing something after copying"
         with:
-          host: ${{ secrets.DEV_SERVER_HOST }}
-          user: ${{ secrets.DEV_SERVER_USER}}
-          pass: ${{ secrets.DEV_SERVER_PASSWORD }}
+          host: ${{ secrets.SERVER_HOST }}
+          user: ${{ secrets.SERVER_USER }}
+          pass: ${{ secrets.SERVER_PASSWORD }}
           scp: |
             ./publish.zip => /opt/app/zip/publish.zip
           last_ssh: |
             echo "🔄 Starting deployment process..." >> /opt/app/zip/deployment.log
+            echo "📦 Checking if publish.zip exists..." >> /opt/app/zip/deployment.log
+            ls -l /opt/app/zip >> /opt/app/zip/deployment.log  # 列出目录文件
+            if [ -f /opt/app/zip/publish.zip ]; then
+              echo "✅ publish.zip found." >> /opt/app/zip/deployment.log
+            else
+              echo "❌ publish.zip not found!" >> /opt/app/zip/deployment.log
+            fi
             echo "📦 Unzipping publish.zip..." >> /opt/app/zip/deployment.log
-            cd /opt/app/zip
-            unzip -l publish.zip >> /opt/app/zip/deployment.log  # 查看 ZIP 文件内容（调试用）
-            unzip publish.zip >> /opt/app/zip/deployment.log
+            unzip -l /opt/app/zip/publish.zip >> /opt/app/zip/deployment.log  # 查看 ZIP 文件内容（调试用）
+            unzip /opt/app/zip/publish.zip >> /opt/app/zip/deployment.log
             echo "🚀 Starting Docker Compose deployment..." >> /opt/app/zip/deployment.log
-            docker-compose -f docker-compose.env.yml up -d >> /opt/app/zip/deployment.log 2>&1
-            docker-compose -f docker-compose.service.yml up -d >> /opt/app/zip/deployment.log 2>&1
+            docker-compose -f /opt/app/zip/docker-compose.env.yml up -d >> /opt/app/zip/deployment.log 2>&1
+            docker-compose -f /opt/app/zip/docker-compose.service.yml up -d >> /opt/app/zip/deployment.log 2>&1
             echo "✅ Deployment completed successfully!" >> /opt/app/zip/deployment.log
             docker-compose ps >> /opt/app/zip/deployment.log  # 显示 Docker 服务状态（调试用）
 
