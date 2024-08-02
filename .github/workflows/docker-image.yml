@@ -140,5 +140,18 @@ jobs:
             cd /opt/app/test
             unzip publish.zip
 
+      - name: 删除之前的文件
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        env:
+          LASTSSH: "Doing something after copying"
+        with:
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          user: ${{ secrets.DEV_SERVER_USER }}
+          pass: ${{ secrets.DEV_SERVER_PASSWORD }}
+          last_ssh: |
+            cd /opt/app/test
+            mvn clean install
+            docker-compose -f docker-compose.env.yml up -d
+            docker-compose -f docker-compose.service.yml up -d
       - name: 打印作业状态 🍏
         run: echo "🍏 This job's status is ${{ job.status }}."
