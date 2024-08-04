@@ -3,7 +3,7 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/olecode # localhost 改为 mysql
+    url: jdbc:mysql://olecode-mysql:3306/olecode # localhost 改为 mysql
     username: root
     password: 123456
   # Redis 配置
@@ -15,11 +15,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos:8848 # localhost 改为 nacos
+        server-addr: olecode-nacos:8848 # localhost 改为 nacos
         username: nacos
         password: nacos
   rabbitmq:
-    host: rabbitmq # localhost 改为 rabbitmq
+    host: olecode-rabbitmq # localhost 改为 rabbitmq
     port: 5672
     password: guest
     username: guest

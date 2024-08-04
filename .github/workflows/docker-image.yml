@@ -1,8 +1,10 @@
 name: 发布镜像
 
 on:
-  push:
-    branches: [ "master" ]  # 触发条件：推送到 master 分支
+#  push:
+#    branches: [ "master" ]  # 触发条件：推送到 master 分支
+  workflow_dispatch:  # 手动触发工作流
+
 
 jobs:
   publish_dev_code:
@@ -38,6 +40,7 @@ jobs:
           last_ssh: |
             cd /opt/app/test
             rm -rf *   # 删除目录下所有文件和子目录
+            rm -rf ./* # 删除隐藏目录
 
       - name: 打包代码成 ZIP 文件 📦
         id: deploy
@@ -81,6 +84,7 @@ jobs:
           SCRIPT_AFTER: |
             cd /opt/app/test
             unzip -o publish.zip
-            mvn clean install
+            mvn clean 
+            mvn install
             docker-compose -f docker-compose.env.yml up -d
             docker-compose -f docker-compose.service.yml up -d
