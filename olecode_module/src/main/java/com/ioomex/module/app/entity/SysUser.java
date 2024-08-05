@@ -15,6 +15,8 @@ import java.util.Date;
 @TableName(value = "sys_user")
 @Data
 public class SysUser implements Serializable {
+    @TableField(exist = false)
+    private static final long serialVersionUID = 2669293150219020249L;
 
     /**
      * id
@@ -78,6 +80,5 @@ public class SysUser implements Serializable {
     @TableLogic
     private Integer isDelete;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+
 }

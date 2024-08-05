@@ -13,10 +13,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.Resource;
+
 @Component
 public class GlobalAuthFilter implements GlobalFilter, Ordered {
 
-    private AntPathMatcher antPathMatcher;
+
+
+    private AntPathMatcher antPathMatcher=new AntPathMatcher();
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
