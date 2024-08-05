@@ -10,6 +10,7 @@
     <name>oledcodeApp</name>
     <description>nacos+sentinel+gateway....</description>
     <modules>
+<!--       公共模块-->
         <module>olecode_common</module>
         <module>olecode_module</module>
         <module>olecode_codeJudge_service</module>
