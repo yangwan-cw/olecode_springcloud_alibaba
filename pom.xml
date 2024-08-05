@@ -12,11 +12,17 @@
     <modules>
 <!--       公共模块-->
         <module>olecode_common</module>
+<!--       公共实体-->
         <module>olecode_module</module>
+<!--        判题服务-->
         <module>olecode_codeJudge_service</module>
+<!--        网关-->
         <module>olecode_gateway</module>
+<!--        问题-->
         <module>olecode_question_service</module>
+<!--        远程调用-->
         <module>olecode_service_client</module>
+<!--        用户服务-->
         <module>olecode_user_service</module>
     </modules>
 
