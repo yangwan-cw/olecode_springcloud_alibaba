@@ -9,10 +9,12 @@ import com.ioomex.module.app.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import static com.ioomex.common.app.constant.UserConstant.USER_LOGIN_STATE;
 
@@ -22,11 +24,11 @@ public interface UserFeign {
 
 
 
-    @GetMapping("/get/id")
+    @PostMapping("/get/id")
     SysUser getById(long userId);
 
-    @GetMapping("/get/ids")
-    List<SysUser> listByIds(Collection<Long> idList);
+    @PostMapping("/get/ids")
+    List<SysUser> listByIds(Set<Long> idList);
 
 
 

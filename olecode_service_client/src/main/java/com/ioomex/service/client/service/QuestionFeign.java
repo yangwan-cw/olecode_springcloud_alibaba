@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "olecode-question-service", path = "/api/question/inner")
 public interface QuestionFeign {
 
-    @GetMapping("/get/id")
+    @PostMapping("/get/id")
     Question getQuestionById(@RequestParam("questionId") long questionId);
 
-    @GetMapping("/questionsubmit/get/id")
+    @PostMapping("/questionsubmit/get/id")
     QuestionSubmit getQvestionSubmitById(@RequestParam("guestionId") long questionSubmitId);
 
     @PostMapping("/question _submit/update")

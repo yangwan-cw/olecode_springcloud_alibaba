@@ -1,5 +1,7 @@
 package com.ioomex.question.app;
 
+import com.ioomex.common.app.config.MyBatisPlusConfig;
+import com.ioomex.common.app.exception.GlobalExceptionHandler;
 import com.ioomex.common.app.starter.ApplicationRunStarter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
@@ -11,6 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.SpringVersion;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -22,6 +25,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan("com.ioomex.question.app.mapper")
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"com.ioomex.service.client.service"})
+@Import(value = {GlobalExceptionHandler.class, MyBatisPlusConfig.class})
 public class OlecodeQuestionServiceApplication {
 
     public static void main(String[] args) {
