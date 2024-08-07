@@ -22,6 +22,8 @@ import com.ioomex.module.app.vo.QuestionVO;
 import com.ioomex.question.app.service.QuestionService;
 import com.ioomex.question.app.service.QuestionSubmitService;
 import com.ioomex.service.client.service.UserFeign;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
@@ -37,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 @RequestMapping("/")
-
+@Api(tags = "题目管理")
 public class QuestionController {
 
     @Resource
@@ -64,6 +66,7 @@ public class QuestionController {
      * @return 创建结果
      */
     @PostMapping("/add")
+    @ApiOperation(value = "创建题目", notes = "添加新的题目到系统")
     public BaseResponse<Long> addQuestion(@RequestBody QuestionAddRequest questionAddRequest, HttpServletRequest request) {
         if (ObjectUtils.isEmpty(questionAddRequest)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -105,6 +108,7 @@ public class QuestionController {
      * @return
      */
     @PostMapping("/delete")
+    @ApiOperation(value = "删除题目", notes = "删除指定 ID 的题目")
     public BaseResponse<Boolean> deleteQuestion(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (ObjectUtils.isEmpty(deleteRequest) || deleteRequest.getId() <= NumberConstant.ZERO) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -127,6 +131,7 @@ public class QuestionController {
      */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @ApiOperation(value = "更新题目", notes = "仅管理员可更新题目信息")
     public BaseResponse<Boolean> updateQuestion(@RequestBody QuestionUpdateRequest questionUpdateRequest) {
         if (questionUpdateRequest == null || questionUpdateRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -162,6 +167,7 @@ public class QuestionController {
      * @return
      */
     @GetMapping("/get/vo")
+    @ApiOperation(value = "根据 ID 获取题目", notes = "通过题目 ID 获取题目详情")
     public BaseResponse<QuestionVO> getQuestionVOById(long id, HttpServletRequest request) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -177,6 +183,7 @@ public class QuestionController {
      * 分页获取列表（封装类）
      */
     @PostMapping("/list/page/vo")
+    @ApiOperation(value = "分页获取题目列表（封装类）", notes = "分页获取题目列表，返回封装后的信息")
     public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest, HttpServletRequest request) {
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
@@ -190,6 +197,7 @@ public class QuestionController {
      * 分页获取当前用户创建的资源列表
      */
     @PostMapping("/my/list/page/vo")
+    @ApiOperation(value = "分页获取当前用户创建的题目列表", notes = "分页获取当前用户创建的题目列表")
     public BaseResponse<Page<QuestionVO>> listMyQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest, HttpServletRequest request) {
         if (questionQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -209,6 +217,7 @@ public class QuestionController {
      */
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @ApiOperation(value = "分页获取题目列表（仅管理员）", notes = "分页获取所有题目列表，仅管理员可访问")
     public BaseResponse<Page<Question>> listQuestionByPage(@RequestBody QuestionQueryRequest questionQueryRequest, HttpServletRequest request) {
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
@@ -225,6 +234,7 @@ public class QuestionController {
      * @return
      */
     @PostMapping("/edit")
+    @ApiOperation(value = "编辑题目", notes = "编辑题目，仅本人或管理员可操作")
     public BaseResponse<Boolean> editQuestion(@RequestBody QuestionEditRequest questionEditRequest, HttpServletRequest request) {
         if (questionEditRequest == null || questionEditRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -263,6 +273,7 @@ public class QuestionController {
      * 提交题目
      */
     @PostMapping("/submit/data")
+    @ApiOperation(value = "提交题目", notes = "用户提交题目")
     public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
                                                HttpServletRequest request) {
         if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
@@ -295,6 +306,7 @@ public class QuestionController {
      * @return
      */
     @PostMapping("/submit/list/page")
+    @ApiOperation(value = "分页获取题目提交列表", notes = "分页获取题目提交列表，返回脱敏信息")
     public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest,
                                                                          HttpServletRequest request) {
         long current = questionSubmitQueryRequest.getCurrent();

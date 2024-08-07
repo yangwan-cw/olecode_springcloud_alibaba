@@ -28,7 +28,7 @@ public class ApplicationRunStarter {
             String path = env.getProperty("server.servlet.context-path", "");
 
             String localUrl = "http://localhost:" + port + path;
-            String kn4jDocUrl = "http://" + ip + ":" + port + path + "/doc.html";
+            String kn4jDocUrl = "http://" + ip + ":" + port  + "/doc.html";
 
             log.info("\n----------------------------------------------------------\n\t"
                 + "Application is running! Access URLs:\n\t"

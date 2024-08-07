@@ -14,6 +14,8 @@ import com.ioomex.module.app.entity.SysUser;
 import com.ioomex.module.app.vo.LoginUserVO;
 import com.ioomex.module.app.vo.UserVO;
 import com.ioomex.user.app.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +39,7 @@ import static com.ioomex.user.app.service.impl.UserServiceImpl.SALT;
 @RestController
 @RequestMapping("/")
 @Slf4j
+@Api(tags = "用户接口")
 public class SysUserController {
 
     @Resource
@@ -45,6 +48,7 @@ public class SysUserController {
 
 
     @PostMapping("/register")
+    @ApiOperation(value = "用户注册", notes = "用户通过此接口进行注册")
     public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
         if (ObjectUtils.isEmpty(userRegisterRequest)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -63,6 +67,7 @@ public class SysUserController {
      * 用户登录
      */
     @PostMapping("/login")
+    @ApiOperation(value = "用户登录", notes = "用户通过此接口进行登录")
     public BaseResponse<LoginUserVO> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
         if (ObjectUtils.isEmpty(userLoginRequest)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -83,6 +88,7 @@ public class SysUserController {
      *
      */
     @PostMapping("/logout")
+    @ApiOperation(value = "用户注销", notes = "用户通过此接口进行注销")
     public BaseResponse<Boolean> userLogout(HttpServletRequest request) {
         if (ObjectUtils.isEmpty(request)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -96,6 +102,7 @@ public class SysUserController {
      *
      */
     @GetMapping("/get/login")
+    @ApiOperation(value = "获取当前登录用户", notes = "获取当前登录用户的信息")
     public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
         SysUser sysUser = userService.getLoginUser(request);
         return ResultUtils.success(userService.getLoginUserVO(sysUser));
@@ -106,6 +113,7 @@ public class SysUserController {
      */
     @PostMapping("/add")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @ApiOperation(value = "创建用户", notes = "管理员通过此接口创建新用户")
     public BaseResponse<Long> addUser(@RequestBody UserAddRequest userAddRequest, HttpServletRequest request) {
         if (userAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -127,6 +135,7 @@ public class SysUserController {
      */
     @PostMapping("/delete")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @ApiOperation(value = "删除用户", notes = "管理员通过此接口删除用户")
     public BaseResponse<Boolean> deleteUser(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -141,6 +150,7 @@ public class SysUserController {
      */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @ApiOperation(value = "更新用户", notes = "管理员通过此接口更新用户信息")
     public BaseResponse<Boolean> updateUser(@RequestBody UserUpdateRequest userUpdateRequest,
                                             HttpServletRequest request) {
         if (userUpdateRequest == null || userUpdateRequest.getId() == null) {
@@ -159,6 +169,7 @@ public class SysUserController {
      */
     @GetMapping("/get")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @ApiOperation(value = "根据 ID 获取用户", notes = "管理员通过此接口获取用户信息")
     public BaseResponse<SysUser> getUserById(long id, HttpServletRequest request) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -173,6 +184,7 @@ public class SysUserController {
      *
      */
     @GetMapping("/get/vo")
+    @ApiOperation(value = "根据 ID 获取用户包装类", notes = "通过此接口获取用户包装类信息")
     public BaseResponse<UserVO> getUserVOById(long id, HttpServletRequest request) {
         BaseResponse<SysUser> response = getUserById(id, request);
         SysUser sysUser = response.getData();
@@ -185,6 +197,7 @@ public class SysUserController {
      */
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @ApiOperation(value = "分页获取用户列表", notes = "管理员通过此接口分页获取用户列表")
     public BaseResponse<Page<SysUser>> listUserByPage(@RequestBody UserQueryRequest userQueryRequest,
                                                       HttpServletRequest request) {
         long current = userQueryRequest.getCurrent();
@@ -199,6 +212,7 @@ public class SysUserController {
      *
      */
     @PostMapping("/list/page/vo")
+    @ApiOperation(value = "分页获取用户封装列表", notes = "分页获取用户封装类信息")
     public BaseResponse<Page<UserVO>> listUserVOByPage(@RequestBody UserQueryRequest userQueryRequest,
                                                        HttpServletRequest request) {
         if (userQueryRequest == null) {
@@ -222,6 +236,7 @@ public class SysUserController {
      *
      */
     @PostMapping("/update/my")
+    @ApiOperation(value = "更新个人信息", notes = "用户通过此接口更新自己的个人信息")
     public BaseResponse<Boolean> updateMyUser(@RequestBody UserUpdateMyRequest userUpdateMyRequest,
                                               HttpServletRequest request) {
         if (userUpdateMyRequest == null) {
